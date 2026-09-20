@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poki Game Portal - Developer Edition</title>
-    
+    <title>Game Portal</title>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -28,62 +28,26 @@
                     },
                     borderRadius: {
                         '3xl': '1.75rem'
-                    },
-                    animation: {
-                        'pulse-glow': 'pulseGlow 2s infinite',
-                        'float': 'float 3s ease-in-out infinite'
-                    },
-                    keyframes: {
-                        pulseGlow: {
-                            '0%, 100%': { boxShadow: '0 0 15px rgba(123, 44, 191, 0.4)' },
-                            '50%': { boxShadow: '0 0 30px rgba(255, 0, 127, 0.7)' }
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-6px)' }
-                        }
                     }
                 }
             }
         }
     </script>
-    
+
     <!-- FontAwesome & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+
     <style>
-        body {
-            font-family: 'Outfit', sans-serif;
-        }
-        
-        /* Custom scrollbars */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.1);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #7b2cbf;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #ff007f;
-        }
-        
-        .poki-card {
-            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .poki-card:hover {
-            transform: translateY(-6px) scale(1.02);
-        }
-        
-        /* Custom code highlight box */
-        pre code {
-            font-family: 'Courier New', Courier, monospace;
-        }
+        body { font-family: 'Outfit', sans-serif; }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.1); }
+        ::-webkit-scrollbar-thumb { background: #7b2cbf; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #ff007f; }
+
+        .poki-card { transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .poki-card:hover { transform: translateY(-6px) scale(1.02); }
     </style>
 </head>
 <body class="bg-poki-lightBg dark:bg-poki-darkBg text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-300 flex flex-col">
@@ -91,59 +55,38 @@
     <!-- TOP NAVBAR -->
     <header class="sticky top-0 z-40 bg-white/90 dark:bg-poki-darkCard/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-            
+
             <!-- Logo -->
-            <a href="#" onclick="filterCategory('All')" class="flex items-center gap-3 group">
+            <a href="./" class="flex items-center gap-3 group">
                 <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-poki-purple via-poki-pink to-poki-yellow p-1 shadow-lg group-hover:rotate-6 transition-transform">
                     <div class="w-full h-full bg-slate-900 rounded-[12px] flex items-center justify-center text-white text-2xl font-black tracking-tighter">
                         P<span class="text-poki-pink">!</span>
                     </div>
                 </div>
-                <div>
-                    <div class="flex items-center gap-1.5">
-                        <span class="text-2xl font-black tracking-wider uppercase bg-gradient-to-r from-poki-purple via-poki-pink to-poki-yellow bg-clip-text text-transparent">POKI</span>
-                        <span class="bg-poki-purple/20 text-poki-purple dark:text-poki-violet text-xs font-extrabold px-2 py-0.5 rounded-full border border-poki-purple/30">DEV</span>
-                    </div>
-                    <p class="text-[10px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-widest -mt-1">GitHub Portal</p>
-                </div>
+                <span class="text-2xl font-black tracking-wider uppercase bg-gradient-to-r from-poki-purple via-poki-pink to-poki-yellow bg-clip-text text-transparent">POKI</span>
             </a>
 
             <!-- Search Bar -->
             <div class="flex-1 max-w-md hidden md:block">
                 <div class="relative">
                     <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                    <input type="text" id="searchInput" placeholder="Search games or tags..." 
+                    <input type="text" id="searchInput" placeholder="Search games..."
                         class="w-full pl-11 pr-4 py-2.5 rounded-full bg-slate-100 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700/60 focus:outline-none focus:ring-2 focus:ring-poki-purple transition-all text-sm font-medium">
                 </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="flex items-center gap-2 sm:gap-3">
-                <!-- Developer Hub Button -->
-                <button onclick="openDevHubModal()" class="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-poki-purple to-poki-pink hover:from-poki-pink hover:to-poki-purple text-white font-bold text-sm rounded-full shadow-lg hover:shadow-poki-purple/20 transition-all transform active:scale-95">
-                    <i class="fas fa-code"></i>
-                    <span class="hidden sm:inline">Developer Hub</span>
-                </button>
-
-                <!-- Add Custom Game Card Button -->
-                <button onclick="openAddGameModal()" class="p-2.5 sm:px-3.5 sm:py-2.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-sm flex items-center gap-2 border border-slate-200 dark:border-slate-700 transition-all">
-                    <i class="fas fa-plus text-poki-pink"></i>
-                    <span class="hidden md:inline">Add Game Card</span>
-                </button>
-
-                <!-- Dark Mode Toggle -->
-                <button id="themeToggleBtn" onclick="toggleTheme()" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-slate-700 transition-all">
-                    <i class="fas fa-moon dark:hidden"></i>
-                    <i class="fas fa-sun hidden dark:inline text-poki-yellow"></i>
-                </button>
-            </div>
+            <!-- Dark Mode Toggle -->
+            <button id="themeToggleBtn" onclick="toggleTheme()" aria-label="Toggle dark mode" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center border border-slate-200 dark:border-slate-700 transition-all">
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:inline text-poki-yellow"></i>
+            </button>
         </div>
 
         <!-- Mobile Search Bar -->
         <div class="px-4 pb-3 md:hidden">
             <div class="relative">
                 <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                <input type="text" id="mobileSearchInput" placeholder="Search games..." 
+                <input type="text" id="mobileSearchInput" placeholder="Search games..."
                     class="w-full pl-11 pr-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-poki-purple text-sm">
             </div>
         </div>
@@ -151,860 +94,274 @@
 
     <!-- MAIN CONTAINER -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
-        
-        <!-- Category Filter Pills Bar -->
-        <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-6 no-scrollbar" id="categoryContainer">
-            <!-- Categories rendered dynamically via JS -->
-        </div>
-
-        <!-- Repository Structure Info Banner -->
-        <div class="bg-gradient-to-r from-indigo-900/40 via-purple-900/30 to-slate-900/50 border border-indigo-500/30 rounded-2xl p-4 sm:p-5 mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xl backdrop-blur-sm">
-            <div class="flex items-start gap-4">
-                <div class="p-3 bg-indigo-600/20 text-indigo-400 rounded-xl border border-indigo-500/30 text-2xl hidden sm:block">
-                    <i class="fas fa-folder-tree"></i>
-                </div>
-                <div>
-                    <h3 class="font-bold text-base sm:text-lg text-white flex items-center gap-2">
-                        <span>GitHub Repository Mode Active</span>
-                        <span class="text-xs font-semibold bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-md border border-emerald-500/30">Ready for ./Games/*.html</span>
-                    </h3>
-                    <p class="text-xs sm:text-sm text-slate-300 mt-0.5">
-                        Games load from <code class="bg-slate-800 px-2 py-0.5 rounded text-poki-pink font-mono text-xs">./Games/&lt;game-id&gt;.html</code> inside your repository. Create blank files or use our 1-click starter templates.
-                    </p>
-                </div>
-            </div>
-            <div class="flex items-center gap-2 self-end md:self-auto shrink-0">
-                <button onclick="openDevHubModal('templates')" class="text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white px-3.5 py-2 rounded-xl transition-all shadow-md flex items-center gap-1.5">
-                    <i class="fas fa-copy"></i>
-                    <span>Get Starter Boilerplate</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- FEATURED HERO GAME SHOWCASE -->
-        <div id="heroSection" class="mb-8">
-            <!-- Rendered by JS -->
-        </div>
 
         <!-- SECTION HEADING -->
         <div class="flex items-center justify-between mb-4">
-            <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2" id="gridTitle">
+            <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
                 <i class="fas fa-fire text-poki-pink"></i>
-                <span>All HTML5 Games</span>
+                <span>All Games</span>
             </h2>
-            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400" id="gameCountBadge">
-                Showing 0 games
-            </span>
+            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400" id="gameCountBadge">Loading...</span>
         </div>
 
-        <!-- MASONRY GAME CARDS GRID -->
-        <div id="gamesGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5">
-            <!-- Game cards inserted dynamically -->
-        </div>
+        <!-- GAME CARDS GRID -->
+        <div id="gamesGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5"></div>
 
-        <!-- Empty Search State -->
-        <div id="noResultsState" class="hidden py-16 text-center">
+        <!-- Empty / Error State -->
+        <div id="messageState" class="hidden py-16 text-center">
             <div class="w-20 h-20 mx-auto mb-4 bg-slate-200 dark:bg-slate-800 rounded-full flex items-center justify-center text-3xl text-slate-400">
                 <i class="fas fa-gamepad"></i>
             </div>
-            <h3 class="text-lg font-bold text-slate-700 dark:text-slate-200">No games found</h3>
-            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Try searching for a different keyword or category.</p>
-            <button onclick="filterCategory('All')" class="mt-4 px-4 py-2 bg-poki-purple text-white text-xs font-bold rounded-xl hover:bg-poki-violet transition-colors">
-                Reset Filters
-            </button>
+            <h3 id="messageTitle" class="text-lg font-bold text-slate-700 dark:text-slate-200"></h3>
+            <p id="messageBody" class="text-sm text-slate-500 dark:text-slate-400 mt-1"></p>
         </div>
 
     </main>
 
-    <!-- FOOTER -->
-    <footer class="bg-white dark:bg-poki-darkCard border-t border-slate-200 dark:border-slate-800 py-8 transition-colors mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-xl bg-poki-purple text-white flex items-center justify-center font-black text-sm">P!</div>
-                <p class="text-xs text-slate-500 dark:text-slate-400">
-                    Poki HTML5 Game Portal &bull; GitHub Pages Ready Structure (<code class="text-poki-pink">./Games/*.html</code>)
-                </p>
-            </div>
-            <div class="flex items-center gap-4 text-xs font-semibold text-slate-500 dark:text-slate-400">
-                <button onclick="openDevHubModal('instructions')" class="hover:text-poki-pink transition-colors">GitHub Setup Guide</button>
-                <span>&bull;</span>
-                <button onclick="openDevHubModal('templates')" class="hover:text-poki-pink transition-colors">Copy Blank Templates</button>
-                <span>&bull;</span>
-                <a href="#top" class="hover:text-poki-pink transition-colors">Back to Top <i class="fas fa-arrow-up ml-1"></i></a>
-            </div>
-        </div>
-    </footer>
-
     <!-- GAME LAUNCHER MODAL -->
     <div id="gameModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 md:p-6 opacity-0 transition-opacity duration-300">
         <div class="bg-slate-900 border border-slate-800 w-full max-w-5xl h-[92vh] max-h-[850px] rounded-3xl shadow-2xl flex flex-col overflow-hidden transform scale-95 transition-transform duration-300" id="gameModalContent">
-            
-            <!-- Modal Top Navigation Bar -->
+
+            <!-- Modal Top Bar -->
             <div class="bg-slate-900/90 border-b border-slate-800 px-4 py-3 flex items-center justify-between shrink-0">
-                <div class="flex items-center gap-3">
-                    <div id="modalGameIcon" class="w-10 h-10 rounded-xl bg-gradient-to-br from-poki-purple to-poki-pink flex items-center justify-center text-white text-xl font-bold shadow-md">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div id="modalGameIcon" class="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-br from-poki-purple to-poki-pink flex items-center justify-center text-white text-xl font-bold shadow-md">
                         <i class="fas fa-gamepad"></i>
                     </div>
-                    <div>
-                        <h3 id="modalGameTitle" class="text-lg font-bold text-white leading-tight">Game Title</h3>
-                        <div class="flex items-center gap-2 text-xs text-slate-400">
-                            <span id="modalGameCategory" class="bg-slate-800 text-poki-violet font-semibold px-2 py-0.5 rounded-full border border-slate-700">Category</span>
-                            <span>&bull;</span>
-                            <span id="modalGamePath" class="font-mono text-slate-400 text-[11px]">./Games/game.html</span>
-                        </div>
-                    </div>
+                    <h3 id="modalGameTitle" class="text-lg font-bold text-white leading-tight truncate">Game Title</h3>
                 </div>
 
-                <!-- Control Buttons -->
-                <div class="flex items-center gap-2">
-                    <button id="likeBtn" onclick="toggleLikeCurrentGame()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 border border-slate-700">
-                        <i class="far fa-heart text-poki-pink" id="likeIcon"></i>
-                        <span id="likeCount">0</span>
-                    </button>
+                <div class="flex items-center gap-2 shrink-0">
                     <button onclick="toggleFullscreen()" class="px-3 py-1.5 bg-poki-purple hover:bg-poki-violet text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-md">
                         <i class="fas fa-expand"></i>
                         <span class="hidden sm:inline">Fullscreen</span>
                     </button>
-                    <button onclick="closeGameModal()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-red-500/20 hover:text-red-400 text-slate-400 flex items-center justify-center transition-all">
+                    <button onclick="closeGameModal()" aria-label="Close game" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-red-500/20 hover:text-red-400 text-slate-400 flex items-center justify-center transition-all">
                         <i class="fas fa-times text-base"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- Modal Content Area (Iframe + Controls) -->
-            <div class="flex-1 relative bg-black flex flex-col items-center justify-center overflow-hidden">
-                
-                <!-- Game Iframe -->
-                <iframe id="gameIframe" class="w-full h-full border-0 relative z-10 bg-slate-950" allow="fullscreen; autoplay; keyboard"></iframe>
-
-                <!-- Blank File / Developer Helper Card Overlay -->
-                <div id="blankFileOverlay" class="absolute inset-0 z-20 bg-slate-950/95 flex flex-col items-center justify-center p-6 text-center overflow-y-auto hidden">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-poki-purple to-poki-pink flex items-center justify-center text-white text-3xl mb-4 shadow-lg animate-bounce">
-                        <i class="fas fa-file-code"></i>
-                    </div>
-                    <h3 class="text-2xl font-black text-white mb-2">Blank or Missing Game File</h3>
-                    <p class="text-sm text-slate-300 max-w-md mb-4">
-                        This game tile is linked to <code id="overlayPathDisplay" class="bg-slate-800 text-poki-pink px-2 py-1 rounded font-mono font-bold">./Games/archers.html</code>.
-                    </p>
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 max-w-lg w-full text-left mb-6 shadow-inner">
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center justify-between">
-                            <span>How to activate this game:</span>
-                            <i class="fas fa-info-circle text-poki-violet"></i>
-                        </p>
-                        <ol class="text-xs text-slate-300 space-y-2 list-decimal list-inside">
-                            <li>Create a folder named <code class="text-indigo-400 font-mono">Games</code> in your root repo.</li>
-                            <li>Create file <code id="overlayFilename" class="text-poki-pink font-mono">archers.html</code> inside <code class="text-indigo-400 font-mono">./Games/</code>.</li>
-                            <li>Copy standard starter code template using the button below.</li>
-                        </ol>
-                    </div>
-                    <div class="flex flex-wrap items-center justify-center gap-3">
-                        <button onclick="copyTemplateCodeForCurrentGame()" class="px-5 py-2.5 bg-poki-purple hover:bg-poki-violet text-white font-bold text-xs rounded-xl transition-all shadow-lg flex items-center gap-2">
-                            <i class="fas fa-copy"></i>
-                            <span>Copy Starter Code for this File</span>
-                        </button>
-                        <button onclick="launchDemoSimulation()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs rounded-xl transition-all border border-slate-700 flex items-center gap-2">
-                            <i class="fas fa-play text-emerald-400"></i>
-                            <span>Test Dynamic Fallback Sandbox</span>
-                        </button>
-                    </div>
-                </div>
+            <!-- Game Iframe -->
+            <div class="flex-1 relative bg-black overflow-hidden">
+                <iframe id="gameIframe" class="w-full h-full border-0 bg-slate-950" allow="fullscreen; autoplay; keyboard"></iframe>
             </div>
 
-            <!-- Modal Bottom Control Guide Bar -->
-            <div class="bg-slate-900 border-t border-slate-800 p-3 sm:p-4 flex flex-wrap items-center justify-between gap-3 shrink-0 text-xs text-slate-400">
-                <div class="flex items-center gap-4">
-                    <span class="font-bold text-slate-300 flex items-center gap-1.5">
-                        <i class="fas fa-gamepad text-poki-pink"></i> Controls:
-                    </span>
-                    <span id="modalControlsGuide" class="text-slate-400">Use Keyboard Arrow keys or Mouse to play.</span>
-                </div>
-                <div class="flex items-center gap-3">
-                    <button onclick="copyShareLink()" class="hover:text-white transition-colors flex items-center gap-1">
-                        <i class="fas fa-share-alt"></i> Share
-                    </button>
-                    <span>&bull;</span>
-                    <button onclick="openDevHubModal('templates')" class="text-poki-violet hover:underline flex items-center gap-1 font-bold">
-                        <i class="fas fa-code"></i> Edit Starter Template
-                    </button>
-                </div>
+            <!-- Controls bar -->
+            <div class="bg-slate-900 border-t border-slate-800 p-3 sm:p-4 flex items-center gap-3 shrink-0 text-xs text-slate-400">
+                <span class="font-bold text-slate-300 flex items-center gap-1.5">
+                    <i class="fas fa-gamepad text-poki-pink"></i> Controls:
+                </span>
+                <span id="modalControlsGuide">Use keyboard or touch to play.</span>
             </div>
-
-        </div>
-    </div>
-
-    <!-- DEVELOPER HUB / CODE COPY MODAL -->
-    <div id="devHubModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 opacity-0 transition-opacity duration-300">
-        <div class="bg-slate-900 border border-slate-800 w-full max-w-4xl h-[90vh] max-h-[800px] rounded-3xl shadow-2xl flex flex-col overflow-hidden transform scale-95 transition-transform duration-300" id="devHubContent">
-            
-            <!-- Dev Hub Header -->
-            <div class="bg-slate-950/80 border-b border-slate-800 px-6 py-4 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-poki-purple text-white flex items-center justify-center text-xl font-bold shadow-md">
-                        <i class="fas fa-terminal"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-white">Developer Hub & Code Center</h3>
-                        <p class="text-xs text-slate-400">Copy starter game templates & configure your repository</p>
-                    </div>
-                </div>
-                <button onclick="closeDevHubModal()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 flex items-center justify-center transition-all">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-
-            <!-- Dev Hub Navigation Tabs -->
-            <div class="flex border-b border-slate-800 bg-slate-900/50 px-6">
-                <button id="tabBtnTemplates" onclick="switchDevTab('templates')" class="px-4 py-3 text-xs font-bold border-b-2 border-poki-pink text-poki-pink transition-all flex items-center gap-2">
-                    <i class="fas fa-file-code"></i> Game Templates (Copyable)
-                </button>
-                <button id="tabBtnInstructions" onclick="switchDevTab('instructions')" class="px-4 py-3 text-xs font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all flex items-center gap-2">
-                    <i class="fas fa-book"></i> GitHub Setup Rules
-                </button>
-            </div>
-
-            <!-- Dev Hub Body Content -->
-            <div class="flex-1 overflow-y-auto p-6 space-y-6">
-                
-                <!-- TAB 1: CODE TEMPLATES -->
-                <div id="devTabTemplates" class="space-y-4">
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
-                        <div>
-                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Select Starter Engine Template:</label>
-                            <select id="templateSelector" onchange="loadSelectedTemplate()" class="bg-slate-800 text-white font-bold text-sm rounded-xl px-3 py-2 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-poki-purple">
-                                <option value="canvasLoop">1. Blank HTML5 Canvas Game Loop (archers.html)</option>
-                                <option value="responsivePhysics">2. Responsive Canvas + Keyboard Controls (racing.html)</option>
-                                <option value="gridPuzzle">3. Grid & Tile Engine Starter (puzzle.html)</option>
-                                <option value="runnerEngine">4. Endless Runner Physics Engine (runner.html)</option>
-                            </select>
-                        </div>
-                        <button id="copyCodeBtn" onclick="copyActiveTemplateCode()" class="w-full sm:w-auto px-5 py-2.5 bg-gradient-to-r from-poki-purple to-poki-pink hover:from-poki-pink hover:to-poki-purple text-white font-bold text-xs rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 shrink-0">
-                            <i class="fas fa-copy text-sm"></i>
-                            <span>Copy Selected Template Code</span>
-                        </button>
-                    </div>
-
-                    <!-- Code Viewer Box -->
-                    <div class="relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
-                        <div class="bg-slate-900/90 px-4 py-2 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400 font-mono">
-                            <span id="templateFileLabel">./Games/archers.html</span>
-                            <span class="text-emerald-400 flex items-center gap-1"><i class="fas fa-check-circle"></i> Ready to paste</span>
-                        </div>
-                        <pre class="p-4 text-xs font-mono text-slate-300 overflow-x-auto max-h-[380px] leading-relaxed" id="codeDisplayArea">
-                            <!-- JS will inject highlighted code here -->
-                        </pre>
-                    </div>
-                </div>
-
-                <!-- TAB 2: GITHUB SETUP INSTRUCTIONS -->
-                <div id="devTabInstructions" class="hidden space-y-4 text-xs text-slate-300">
-                    <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-3">
-                        <h4 class="text-sm font-bold text-white flex items-center gap-2">
-                            <i class="fab fa-github text-lg text-poki-purple"></i>
-                            Recommended GitHub Repository File Structure
-                        </h4>
-                        <p class="text-slate-400">
-                            To host this portal seamlessly on GitHub Pages, organize your repository root as follows:
-                        </p>
-                        <pre class="bg-slate-900 p-4 rounded-xl font-mono text-poki-violet border border-slate-800 leading-relaxed">
-my-poki-portal/
-├── index.html               <-- (This Main Portal Application)
-└── Games/                   <-- (Folder containing all game HTML files)
-    ├── archers.html         <-- Game #1
-    ├── racing.html          <-- Game #2
-    ├── puzzle.html          <-- Game #3
-    └── runner.html          <-- Game #4</pre>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
-                            <h5 class="font-bold text-white mb-1"><i class="fas fa-plus-circle text-poki-pink mr-1"></i> Adding New Games</h5>
-                            <p class="text-slate-400 leading-relaxed">
-                                Simply click the "Add Game Card" button in the header bar. Enter your game title, target file path (e.g. <code class="text-slate-200">./Games/mygame.html</code>), and category. It instantly adds a card to the grid!
-                            </p>
-                        </div>
-                        <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
-                            <h5 class="font-bold text-white mb-1"><i class="fas fa-cloud-upload-alt text-poki-yellow mr-1"></i> Deploying to GitHub Pages</h5>
-                            <p class="text-slate-400 leading-relaxed">
-                                Commit your changes, push to GitHub, and enable GitHub Pages under <span class="text-slate-200 font-semibold">Settings > Pages > Branch: main</span>. Your portal will be live globally!
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Dev Hub Footer -->
-            <div class="bg-slate-950 border-t border-slate-800 px-6 py-3 flex items-center justify-between text-xs text-slate-500">
-                <span>Poki Developer Tools &bull; 100% Self-Contained Portal</span>
-                <button onclick="closeDevHubModal()" class="px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl transition-all">Close</button>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- ADD GAME MODAL -->
-    <div id="addGameModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-        <div class="bg-slate-900 border border-slate-800 w-full max-w-md rounded-3xl p-6 shadow-2xl transform scale-95 transition-transform duration-300" id="addGameContent">
-            
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                    <i class="fas fa-plus-circle text-poki-pink"></i> Add New Game Card
-                </h3>
-                <button onclick="closeAddGameModal()" class="text-slate-400 hover:text-white">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-
-            <form id="addGameForm" onsubmit="handleAddNewGame(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Game Title</label>
-                    <input type="text" id="newGameTitle" required placeholder="e.g. Archer Legend" 
-                        class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-poki-purple">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Game ID / File Name</label>
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-mono text-slate-500">./Games/</span>
-                        <input type="text" id="newGameId" required placeholder="e.g. archers" 
-                            class="flex-1 px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white text-sm font-mono focus:outline-none focus:ring-2 focus:ring-poki-purple">
-                        <span class="text-xs font-mono text-slate-500">.html</span>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Category</label>
-                        <select id="newGameCategory" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-poki-purple">
-                            <option value="Action">Action</option>
-                            <option value="Arcade">Arcade</option>
-                            <option value="Puzzle">Puzzle</option>
-                            <option value="Sports">Sports</option>
-                            <option value="Casual">Casual</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Accent Theme</label>
-                        <select id="newGameColor" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-poki-purple">
-                            <option value="from-purple-600 to-indigo-600">Purple / Indigo</option>
-                            <option value="from-pink-600 to-rose-600">Pink / Rose</option>
-                            <option value="from-amber-500 to-red-600">Amber / Red</option>
-                            <option value="from-emerald-500 to-teal-700">Emerald / Teal</option>
-                            <option value="from-cyan-500 to-blue-600">Cyan / Blue</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Controls Description</label>
-                    <input type="text" id="newGameControls" placeholder="e.g. Arrow keys or Touch to shoot" 
-                        class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-poki-purple">
-                </div>
-
-                <button type="submit" class="w-full py-3 bg-gradient-to-r from-poki-purple to-poki-pink hover:from-poki-pink hover:to-poki-purple text-white font-bold text-sm rounded-xl transition-all shadow-lg mt-2">
-                    Add Game to Portal Grid
-                </button>
-            </form>
 
         </div>
     </div>
 
     <script>
         /* ==========================================================================
-           POKI GAME PORTAL - JAVASCRIPT STATE ENGINE & DEVELOPER CODE GENERATOR
+           SETTINGS
+           This page asks GitHub which .html files are in your Games folder, so any
+           file you add there shows up as a new game.
+
+           Leave REPO_OWNER and REPO_NAME empty and the page works them out from the
+           site address. Only fill them in if the games never show up.
+           GAMES_FOLDER must match your folder name exactly (capital G).
            ========================================================================== */
+        const REPO_OWNER = '';
+        const REPO_NAME = '';
+        const GAMES_FOLDER = 'Games';
+        const CACHE_KEY = 'games_list_backup';
 
-        // Default categories list
-        const categories = ['All', 'Action', 'Arcade', 'Puzzle', 'Sports', 'Casual'];
-
-        // Initial default Poki Games state pointing to ./Games/<game-id>.html
-        let gamesData = [
-            {
-                id: 'archers',
+        /* ==========================================================================
+           GAME DETAILS (optional)
+           Give a game a nicer title, icon, colors, or controls text by adding an
+           entry below. The key is the file name without ".html".
+           Games with no entry here still show up, using their file name as the title.
+           ========================================================================== */
+        const GAME_DETAILS = {
+            archers: {
                 title: 'Archers Legend 3D',
-                category: 'Action',
-                path: 'Games/archers.html',
+                icon: 'fa-bullseye',
                 bgGradient: 'from-purple-600 via-indigo-600 to-slate-900',
-                icon: 'fa-bow-arrow',
-                rating: '4.8',
-                plays: '142K',
-                badge: 'TOP PICK',
-                controls: 'Click/Tap & Drag back to aim, release arrow to shoot targets.',
-                likes: 840,
-                featured: true
-            },
-            {
-                id: 'racing',
-                title: 'Neon Cyber Racer',
-                category: 'Arcade',
-                path: 'Games/racing.html',
-                bgGradient: 'from-pink-600 via-rose-600 to-purple-900',
-                icon: 'fa-car-side',
-                rating: '4.7',
-                plays: '98K',
-                badge: 'HOT',
-                controls: 'Left/Right Arrow keys or Touch screen sides to steer vehicle.',
-                likes: 612,
-                featured: false
-            },
-            {
-                id: 'puzzle',
-                title: 'Block Match 3D',
-                category: 'Puzzle',
-                path: 'Games/puzzle.html',
-                bgGradient: 'from-emerald-500 via-teal-700 to-slate-900',
-                icon: 'fa-cubes',
-                rating: '4.9',
-                plays: '215K',
-                badge: 'POPULAR',
-                controls: 'Click/Tap adjacent matching colored tiles to clear the grid.',
-                likes: 1204,
-                featured: false
-            },
-            {
-                id: 'runner',
-                title: 'Endless Dash',
-                category: 'Action',
-                path: 'Games/runner.html',
-                bgGradient: 'from-amber-500 via-orange-600 to-red-900',
-                icon: 'fa-person-running',
-                rating: '4.6',
-                plays: '76K',
-                badge: 'NEW',
-                controls: 'Spacebar/Up Arrow to Jump over incoming obstacles.',
-                likes: 430,
-                featured: false
-            },
-            {
-                id: 'hoops',
-                title: 'Hoop Master 3D',
-                category: 'Sports',
-                path: 'Games/sports.html',
-                bgGradient: 'from-cyan-500 via-blue-600 to-indigo-900',
-                icon: 'fa-basketball-ball',
-                rating: '4.5',
-                plays: '54K',
-                badge: '2P MODE',
-                controls: 'Swipe Up towards the basketball rim to score points.',
-                likes: 310,
-                featured: false
-            },
-            {
-                id: 'flappy',
-                title: 'Pixel Bird Quest',
-                category: 'Casual',
-                path: 'Games/casual.html',
-                bgGradient: 'from-violet-600 via-purple-700 to-slate-900',
-                icon: 'fa-feather-pointed',
-                rating: '4.4',
-                plays: '89K',
-                badge: 'CLASSIC',
-                controls: 'Tap or press Spacebar to flap wings and stay airborne.',
-                likes: 520,
-                featured: false
+                controls: 'Click/Tap & drag back to aim, release to shoot targets.'
             }
-        ];
-
-        // Developer Starter Templates for 1-Click Copying into ./Games/<id>.html
-        const codeTemplates = {
-            canvasLoop: `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archers Legend - HTML5 Game</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0f172a; color: #fff; font-family: system-ui, sans-serif; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; min-h-screen: 100vh; }
-        canvas { background: #1e293b; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid #334155; }
-        .hud { position: absolute; top: 20px; left: 20px; font-weight: bold; font-size: 18px; color: #38bdf8; }
-    </style>
-</head>
-<body>
-    <div class="hud">Score: <span id="score">0</span></div>
-    <canvas id="gameCanvas" width="800" height="500"></canvas>
-
-    <script>
-        // ARCHERS LEGEND - BLANK STARTER GAME LOOP
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        let score = 0;
-
-        // Player / Bow State
-        const player = { x: 100, y: canvas.height / 2, radius: 20, color: '#38bdf8' };
-        const arrows = [];
-
-        // Main Animation Game Loop
-        function gameLoop() {
-            // 1. Clear Screen
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // 2. Draw Player Target / Archer
-            ctx.beginPath();
-            ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
-            ctx.fillStyle = player.color;
-            ctx.fill();
-
-            // 3. Update & Draw Arrows
-            arrows.forEach((arrow, index) => {
-                arrow.x += 8;
-                ctx.fillStyle = '#f43f5e';
-                ctx.fillRect(arrow.x, arrow.y - 2, 20, 4);
-                if (arrow.x > canvas.width) arrows.splice(index, 1);
-            });
-
-            // 4. Request Next Frame
-            requestAnimationFrame(gameLoop);
-        }
-
-        // Mouse click shoot event
-        canvas.addEventListener('click', (e) => {
-            arrows.push({ x: player.x, y: player.y });
-            score += 10;
-            document.getElementById('score').textContent = score;
-        });
-
-        // Start Loop
-        gameLoop();
-    <\/script>
-</body>
-</html>`,
-
-            responsivePhysics: `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neon Cyber Racer</title>
-    <style>
-        body { margin: 0; background: #09090b; color: #fff; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
-        canvas { background: #18181b; border: 2px solid #ec4899; border-radius: 12px; }
-    </style>
-</head>
-<body>
-    <canvas id="raceCanvas" width="600" height="700"></canvas>
-    <script>
-        const canvas = document.getElementById('raceCanvas');
-        const ctx = canvas.getContext('2d');
-        let carX = canvas.width / 2;
-        const keys = {};
-
-        window.addEventListener('keydown', e => keys[e.key] = true);
-        window.addEventListener('keyup', e => keys[e.key] = false);
-
-        function update() {
-            if (keys['ArrowLeft'] && carX > 40) carX -= 6;
-            if (keys['ArrowRight'] && carX < canvas.width - 40) carX += 6;
-        }
-
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            // Road lines
-            ctx.strokeStyle = '#ec4899';
-            ctx.setLineDash([20, 15]);
-            ctx.beginPath();
-            ctx.moveTo(canvas.width/2, 0); ctx.lineTo(canvas.width/2, canvas.height);
-            ctx.stroke();
-
-            // Cyber Car
-            ctx.fillStyle = '#06b6d4';
-            ctx.fillRect(carX - 20, canvas.height - 100, 40, 70);
-        }
-
-        function loop() {
-            update();
-            draw();
-            requestAnimationFrame(loop);
-        }
-        loop();
-    <\/script>
-</body>
-</html>`,
-
-            gridPuzzle: `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Block Match 3D</title>
-    <style>
-        body { margin: 0; background: #022c22; color: #6ee7b7; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
-        .grid { display: grid; grid-template-columns: repeat(4, 70px); gap: 10px; background: #064e3b; padding: 15px; border-radius: 16px; }
-        .tile { width: 70px; height: 70px; background: #10b981; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 20px; color: white; transition: transform 0.1s; }
-        .tile:hover { transform: scale(1.05); }
-    </style>
-</head>
-<body>
-    <h2>Block Match 3D Grid</h2>
-    <div class="grid" id="grid"></div>
-    <script>
-        const grid = document.getElementById('grid');
-        for(let i=1; i<=16; i++) {
-            const tile = document.createElement('div');
-            tile.className = 'tile';
-            tile.textContent = Math.floor(Math.random() * 4) + 1;
-            tile.onclick = () => { tile.style.background = '#047857'; };
-            grid.appendChild(tile);
-        }
-    <\/script>
-</body>
-</html>`,
-
-            runnerEngine: `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Endless Dash</title>
-    <style>
-        body { margin: 0; background: #1c1917; color: #f97316; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; }
-        canvas { background: #292524; border-bottom: 4px solid #f97316; border-radius: 8px; }
-    </style>
-</head>
-<body>
-    <canvas id="runnerCanvas" width="700" height="400"></canvas>
-    <script>
-        const canvas = document.getElementById('runnerCanvas');
-        const ctx = canvas.getContext('2d');
-        let playerY = 300, velocityY = 0, isJumping = false;
-
-        window.addEventListener('keydown', e => {
-            if(e.code === 'Space' && !isJumping) { velocityY = -12; isJumping = true; }
-        });
-
-        function loop() {
-            velocityY += 0.6; playerY += velocityY;
-            if(playerY >= 300) { playerY = 300; isJumping = false; }
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#f97316';
-            ctx.fillRect(100, playerY, 40, 40);
-            requestAnimationFrame(loop);
-        }
-        loop();
-    <\/script>
-</body>
-</html>`
+            // Example:
+            // space_man: {
+            //     title: 'Space Man',
+            //     icon: 'fa-user-astronaut',
+            //     bgGradient: 'from-cyan-500 via-blue-600 to-indigo-900',
+            //     controls: 'Arrow keys to move.'
+            // }
         };
 
-        // State variables
-        let currentCategory = 'All';
+        // Colors given to games that have no entry above (picked by file name, so they stay the same)
+        const FALLBACK_GRADIENTS = [
+            'from-pink-600 via-rose-600 to-purple-900',
+            'from-emerald-500 via-teal-700 to-slate-900',
+            'from-amber-500 via-orange-600 to-red-900',
+            'from-cyan-500 via-blue-600 to-indigo-900',
+            'from-violet-600 via-purple-700 to-slate-900'
+        ];
+
+        let gamesData = [];
         let searchQuery = '';
-        let activeGameModal = null;
-        let userLikes = JSON.parse(localStorage.getItem('poki_user_likes') || '{}');
 
-        window.addEventListener('DOMContentLoaded', () => {
-            // Load custom added games if saved in localStorage
-            const savedCustom = localStorage.getItem('poki_custom_games');
-            if (savedCustom) {
-                try {
-                    const parsed = JSON.parse(savedCustom);
-                    gamesData = [...gamesData, ...parsed];
-                } catch(e) { console.error('Error loading custom games', e); }
+        function escapeHtml(str) {
+            return String(str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+
+        function prettyTitle(id) {
+            return id.replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim()
+                     .replace(/\b\w/g, ch => ch.toUpperCase());
+        }
+
+        function hashId(id) {
+            let h = 0;
+            for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
+            return h;
+        }
+
+        function buildGame(fileName) {
+            const id = fileName.replace(/\.html$/i, '');
+            const d = GAME_DETAILS[id] || {};
+            return {
+                id: id,
+                title: d.title || prettyTitle(id),
+                icon: d.icon || 'fa-gamepad',
+                bgGradient: d.bgGradient || FALLBACK_GRADIENTS[hashId(id) % FALLBACK_GRADIENTS.length],
+                controls: d.controls || 'Use keyboard or touch to play.',
+                path: GAMES_FOLDER + '/' + encodeURIComponent(fileName)
+            };
+        }
+
+        // Works out your GitHub username and repo name from the site address
+        // (username.github.io/repo-name). If that ever guesses wrong, type them in above.
+        function detectRepo() {
+            let owner = REPO_OWNER;
+            let repo = REPO_NAME;
+            const host = location.hostname;
+            if (host.endsWith('.github.io')) {
+                if (!owner) owner = host.split('.')[0];
+                if (!repo) {
+                    const first = location.pathname.split('/').filter(Boolean)[0];
+                    // No folder in the address means it's the special username.github.io repo
+                    repo = (first && first.toLowerCase() !== 'index.html') ? first : host;
+                }
             }
-
-            renderCategoryPills();
-            renderGrid();
-            loadSelectedTemplate();
-
-            // Set up Search Inputs listeners
-            document.getElementById('searchInput').addEventListener('input', handleSearch);
-            document.getElementById('mobileSearchInput').addEventListener('input', handleSearch);
-        });
-
-        /* ==================== CATEGORY & GRID RENDERERS ==================== */
-        function renderCategoryPills() {
-            const container = document.getElementById('categoryContainer');
-            container.innerHTML = categories.map(cat => {
-                const isActive = cat === currentCategory;
-                const activeClasses = isActive 
-                    ? 'bg-poki-purple text-white shadow-lg shadow-poki-purple/30 scale-105' 
-                    : 'bg-white dark:bg-poki-darkCard text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800';
-                return `
-                    <button onclick="filterCategory('${cat}')" 
-                        class="px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap flex items-center gap-2 ${activeClasses}">
-                        <span>${cat === 'All' ? '<i class="fas fa-th-large"></i>' : ''} ${cat}</span>
-                    </button>
-                `;
-            }).join('');
+            return { owner, repo };
         }
 
-        function filterCategory(cat) {
-            currentCategory = cat;
-            renderCategoryPills();
+        function readCache() {
+            try {
+                const c = JSON.parse(localStorage.getItem(CACHE_KEY));
+                return Array.isArray(c) ? c : null;
+            } catch (e) { return null; }
+        }
+
+        function saveCache(files) {
+            try { localStorage.setItem(CACHE_KEY, JSON.stringify(files)); } catch (e) {}
+        }
+
+        async function fetchGameFiles() {
+            const { owner, repo } = detectRepo();
+            if (!owner || !repo) throw new Error('Could not work out the GitHub repo from the address');
+            const url = 'https://api.github.com/repos/' + owner + '/' + repo + '/contents/' + GAMES_FOLDER;
+            const res = await fetch(url, { headers: { 'Accept': 'application/vnd.github+json' } });
+            if (!res.ok) throw new Error('GitHub answered ' + res.status);
+            const items = await res.json();
+            if (!Array.isArray(items)) throw new Error('Games folder not found');
+            return items
+                .filter(i => i.type === 'file' && /\.html$/i.test(i.name))
+                .map(i => i.name)
+                .sort((a, b) => a.localeCompare(b));
+        }
+
+        async function loadGames() {
+            let files = null;
+            try {
+                files = await fetchGameFiles();
+                saveCache(files);          // remember it in case GitHub can't be reached next time
+            } catch (err) {
+                console.warn('Live games lookup failed, using backup list:', err);
+                // Backup 1: the last list that worked on this device
+                files = readCache();
+                // Backup 2: the games named in GAME_DETAILS above
+                if (!files || files.length === 0) {
+                    files = Object.keys(GAME_DETAILS).map(id => id + '.html');
+                }
+            }
+            gamesData = files.map(buildGame);
             renderGrid();
         }
 
-        function handleSearch(e) {
-            searchQuery = e.target.value.toLowerCase().trim();
-            renderGrid();
+        function showMessage(title, body) {
+            document.getElementById('gamesGrid').innerHTML = '';
+            document.getElementById('messageTitle').textContent = title;
+            document.getElementById('messageBody').textContent = body;
+            document.getElementById('messageState').classList.remove('hidden');
         }
 
         function renderGrid() {
             const grid = document.getElementById('gamesGrid');
-            const heroSection = document.getElementById('heroSection');
-            const noResults = document.getElementById('noResultsState');
+            const filtered = gamesData.filter(g =>
+                g.title.toLowerCase().includes(searchQuery) || g.id.toLowerCase().includes(searchQuery)
+            );
 
-            // Filter logic
-            const filtered = gamesData.filter(game => {
-                const matchesCategory = currentCategory === 'All' || game.category === currentCategory;
-                const matchesSearch = game.title.toLowerCase().includes(searchQuery) || 
-                                      game.category.toLowerCase().includes(searchQuery) ||
-                                      game.id.toLowerCase().includes(searchQuery);
-                return matchesCategory && matchesSearch;
-            });
-
-            document.getElementById('gameCountBadge').textContent = `Showing ${filtered.length} games`;
-            document.getElementById('gridTitle').innerHTML = searchQuery || currentCategory !== 'All' 
-                ? `<i class="fas fa-filter text-poki-pink"></i> Filtered Games (${currentCategory})`
-                : `<i class="fas fa-fire text-poki-pink"></i> All HTML5 Games`;
+            document.getElementById('gameCountBadge').textContent =
+                filtered.length + (filtered.length === 1 ? ' game' : ' games');
 
             if (filtered.length === 0) {
-                grid.innerHTML = '';
-                heroSection.classList.add('hidden');
-                noResults.classList.remove('hidden');
+                showMessage(
+                    gamesData.length === 0 ? 'No games yet' : 'No games found',
+                    gamesData.length === 0
+                        ? 'Add a .html file to the Games folder and it will appear here.'
+                        : 'Try a different search.'
+                );
                 return;
-            } else {
-                noResults.classList.add('hidden');
             }
+            document.getElementById('messageState').classList.add('hidden');
 
-            // Featured Hero Card (Only show on 'All' category and no active search)
-            const featuredGame = gamesData.find(g => g.featured) || gamesData[0];
-            if (currentCategory === 'All' && !searchQuery && featuredGame) {
-                heroSection.classList.remove('hidden');
-                heroSection.innerHTML = `
-                    <div class="relative rounded-3xl overflow-hidden bg-gradient-to-br ${featuredGame.bgGradient} p-6 sm:p-8 text-white shadow-2xl border border-white/10 group cursor-pointer" onclick="launchGame('${featuredGame.id}')">
-                        <div class="absolute -right-10 -bottom-10 w-72 h-72 rounded-full bg-white/10 blur-3xl pointer-events-none group-hover:scale-125 transition-transform"></div>
-                        <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                            <div class="space-y-3 max-w-xl">
-                                <div class="flex items-center gap-2">
-                                    <span class="bg-poki-pink text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
-                                        <i class="fas fa-star mr-1"></i> Featured Pick
-                                    </span>
-                                    <span class="bg-white/20 text-white text-xs font-bold px-2.5 py-1 rounded-full backdrop-blur-md">
-                                        ${featuredGame.category}
-                                    </span>
-                                </div>
-                                <h2 class="text-3xl sm:text-4xl font-black tracking-tight leading-tight">${featuredGame.title}</h2>
-                                <p class="text-xs sm:text-sm text-slate-200 line-clamp-2">${featuredGame.controls}</p>
-                                <div class="flex items-center gap-4 text-xs font-semibold pt-2">
-                                    <span class="flex items-center gap-1"><i class="fas fa-star text-poki-yellow"></i> ${featuredGame.rating}</span>
-                                    <span>&bull;</span>
-                                    <span class="flex items-center gap-1"><i class="fas fa-gamepad"></i> ${featuredGame.plays} plays</span>
-                                    <span>&bull;</span>
-                                    <span class="font-mono text-poki-yellow">./${featuredGame.path}</span>
-                                </div>
-                            </div>
-                            <div class="shrink-0 flex items-center justify-center">
-                                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl sm:text-4xl text-white shadow-2xl border border-white/30 group-hover:scale-110 group-hover:bg-poki-pink transition-all">
-                                    <i class="fas fa-play ml-1"></i>
-                                </div>
-                            </div>
+            grid.innerHTML = filtered.map(game => `
+                <button type="button" data-id="${escapeHtml(game.id)}"
+                    class="poki-card group relative text-left bg-white dark:bg-poki-darkCard rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800/80 shadow-md hover:shadow-xl cursor-pointer flex flex-col">
+
+                    <div class="h-36 sm:h-40 w-full bg-gradient-to-br ${game.bgGradient} relative flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
+                        <div class="relative z-10 text-4xl sm:text-5xl text-white/90 drop-shadow-md group-hover:scale-110 transition-transform">
+                            <i class="fas ${escapeHtml(game.icon)}"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-poki-purple/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-20">
+                            <span class="px-4 py-2 bg-white text-poki-purple font-black text-xs rounded-full shadow-lg flex items-center gap-1.5">
+                                <i class="fas fa-play"></i> PLAY
+                            </span>
                         </div>
                     </div>
-                `;
-            } else {
-                heroSection.classList.add('hidden');
-            }
 
-            // Grid Cards
-            grid.innerHTML = filtered.map(game => {
-                const totalLikes = (game.likes || 0) + (userLikes[game.id] ? 1 : 0);
-                return `
-                    <div onclick="launchGame('${game.id}')" 
-                        class="poki-card group relative bg-white dark:bg-poki-darkCard rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800/80 shadow-md hover:shadow-xl cursor-pointer flex flex-col justify-between">
-                        
-                        <!-- Card Thumbnail Canvas / Gradient Background -->
-                        <div class="h-36 sm:h-40 w-full bg-gradient-to-br ${game.bgGradient} relative p-3 flex flex-col justify-between overflow-hidden">
-                            <!-- Overlay Pattern -->
-                            <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
-                            
-                            <!-- Badges -->
-                            <div class="relative z-10 flex items-center justify-between">
-                                <span class="bg-black/40 backdrop-blur-md text-white text-[10px] font-extrabold px-2 py-0.5 rounded-md border border-white/10 uppercase">
-                                    ${game.category}
-                                </span>
-                                ${game.badge ? `<span class="bg-poki-pink text-white text-[10px] font-black px-2 py-0.5 rounded-md shadow-sm uppercase">${game.badge}</span>` : ''}
-                            </div>
-
-                            <!-- Center Icon Illustration -->
-                            <div class="relative z-10 mx-auto text-4xl sm:text-5xl text-white/90 drop-shadow-md group-hover:scale-110 transition-transform">
-                                <i class="fas ${game.icon}"></i>
-                            </div>
-
-                            <!-- Play Hover Overlay Button -->
-                            <div class="absolute inset-0 bg-poki-purple/80 backdrop-blur-xs opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-20">
-                                <span class="px-4 py-2 bg-white text-poki-purple font-black text-xs rounded-full shadow-lg transform group-hover:scale-105 transition-transform flex items-center gap-1.5">
-                                    <i class="fas fa-play"></i> PLAY
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Card Meta Info -->
-                        <div class="p-3 bg-white dark:bg-poki-darkCard flex-1 flex flex-col justify-between">
-                            <div>
-                                <h3 class="font-bold text-sm text-slate-800 dark:text-white truncate group-hover:text-poki-purple dark:group-hover:text-poki-violet transition-colors">${game.title}</h3>
-                                <p class="text-[11px] font-mono text-slate-400 dark:text-slate-500 mt-0.5 truncate">./${game.path}</p>
-                            </div>
-                            <div class="flex items-center justify-between text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-2 pt-2 border-t border-slate-100 dark:border-slate-800">
-                                <span class="flex items-center gap-1 text-poki-yellow"><i class="fas fa-star"></i> ${game.rating}</span>
-                                <span class="flex items-center gap-1"><i class="fas fa-heart text-poki-pink"></i> ${totalLikes}</span>
-                            </div>
-                        </div>
-
+                    <div class="p-3">
+                        <h3 class="font-bold text-sm text-slate-800 dark:text-white truncate group-hover:text-poki-purple dark:group-hover:text-poki-violet transition-colors">${escapeHtml(game.title)}</h3>
                     </div>
-                `;
-            }).join('');
+                </button>
+            `).join('');
+
+            grid.querySelectorAll('button[data-id]').forEach(btn => {
+                btn.addEventListener('click', () => launchGame(btn.dataset.id));
+            });
         }
 
-        /* ==================== GAME LAUNCHER MODAL LOGIC ==================== */
+        /* ==================== GAME LAUNCHER MODAL ==================== */
         function launchGame(gameId) {
             const game = gamesData.find(g => g.id === gameId);
             if (!game) return;
 
-            activeGameModal = game;
-
-            // Update UI modal metadata
             document.getElementById('modalGameTitle').textContent = game.title;
-            document.getElementById('modalGameCategory').textContent = game.category;
-            document.getElementById('modalGamePath').textContent = `./${game.path}`;
-            document.getElementById('modalControlsGuide').textContent = game.controls || 'Keyboard & Mouse controls.';
-            document.getElementById('modalGameIcon').className = `w-10 h-10 rounded-xl bg-gradient-to-br ${game.bgGradient} flex items-center justify-center text-white text-xl font-bold shadow-md`;
-            document.getElementById('modalGameIcon').innerHTML = `<i class="fas ${game.icon}"></i>`;
-            
-            // Like counter
-            updateModalLikeBtn();
+            document.getElementById('modalControlsGuide').textContent = game.controls;
+            const icon = document.getElementById('modalGameIcon');
+            icon.className = 'w-10 h-10 shrink-0 rounded-xl bg-gradient-to-br ' + game.bgGradient + ' flex items-center justify-center text-white text-xl font-bold shadow-md';
+            icon.innerHTML = '<i class="fas ' + escapeHtml(game.icon) + '"></i>';
 
-            // Set up Iframe & Blank File Detection Overlay
-            const iframe = document.getElementById('gameIframe');
-            const blankOverlay = document.getElementById('blankFileOverlay');
-            
-            // Setup blank warning labels
-            document.getElementById('overlayPathDisplay').textContent = `./${game.path}`;
-            document.getElementById('overlayFilename').textContent = `${game.id}.html`;
+            document.getElementById('gameIframe').src = game.path;
 
-            // Reset iframe & overlay
-            blankOverlay.classList.add('hidden');
-            iframe.src = game.path;
-
-            // Handle missing or blank file in GitHub environment safely
-            iframe.onerror = function() {
-                blankOverlay.classList.remove('hidden');
-            };
-
-            // Inspect iframe load content
-            iframe.onload = function() {
-                try {
-                    // If running locally without created files or blank response
-                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                    if (!iframeDoc || !iframeDoc.body || iframeDoc.body.innerHTML.trim() === '' || iframeDoc.title.includes('404')) {
-                        blankOverlay.classList.remove('hidden');
-                    }
-                } catch(err) {
-                    // Cross-origin restriction implies non-blank external or active local file!
-                    blankOverlay.classList.add('hidden');
-                }
-            };
-
-            // Show Modal
             const modal = document.getElementById('gameModal');
             const content = document.getElementById('gameModalContent');
             modal.classList.remove('hidden');
@@ -1017,228 +374,21 @@ my-poki-portal/
         function closeGameModal() {
             const modal = document.getElementById('gameModal');
             const content = document.getElementById('gameModalContent');
-            const iframe = document.getElementById('gameIframe');
-            
             modal.classList.add('opacity-0');
             content.classList.add('scale-95');
             setTimeout(() => {
                 modal.classList.add('hidden');
-                iframe.src = 'about:blank'; // Clear RAM
-                activeGameModal = null;
+                document.getElementById('gameIframe').src = 'about:blank'; // stops the game and frees memory
             }, 300);
-        }
-
-        function launchDemoSimulation() {
-            if (!activeGameModal) return;
-            const iframe = document.getElementById('gameIframe');
-            const blankOverlay = document.getElementById('blankFileOverlay');
-            
-            // Pick code matching template key
-            let templateCode = codeTemplates.canvasLoop;
-            if (activeGameModal.id === 'racing') templateCode = codeTemplates.responsivePhysics;
-            if (activeGameModal.id === 'puzzle') templateCode = codeTemplates.gridPuzzle;
-            if (activeGameModal.id === 'runner') templateCode = codeTemplates.runnerEngine;
-
-            blankOverlay.classList.add('hidden');
-            const doc = iframe.contentDocument || iframe.contentWindow.document;
-            doc.open();
-            doc.write(templateCode);
-            doc.close();
-        }
-
-        function toggleLikeCurrentGame() {
-            if (!activeGameModal) return;
-            const id = activeGameModal.id;
-            userLikes[id] = !userLikes[id];
-            localStorage.setItem('poki_user_likes', JSON.stringify(userLikes));
-            updateModalLikeBtn();
-            renderGrid(); // Refresh cards grid counter
-        }
-
-        function updateModalLikeBtn() {
-            if (!activeGameModal) return;
-            const isLiked = userLikes[activeGameModal.id];
-            const baseLikes = activeGameModal.likes || 0;
-            const total = baseLikes + (isLiked ? 1 : 0);
-            
-            document.getElementById('likeCount').textContent = total;
-            const icon = document.getElementById('likeIcon');
-            if (isLiked) {
-                icon.className = 'fas fa-heart text-poki-pink';
-            } else {
-                icon.className = 'far fa-heart text-poki-pink';
-            }
         }
 
         function toggleFullscreen() {
             const iframe = document.getElementById('gameIframe');
-            if (iframe.requestFullscreen) {
-                iframe.requestFullscreen();
-            } else if (iframe.webkitRequestFullscreen) {
-                iframe.webkitRequestFullscreen();
-            }
+            if (iframe.requestFullscreen) iframe.requestFullscreen();
+            else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
         }
 
-        /* ==================== DEVELOPER HUB & CODE COPY TOOLS ==================== */
-        function openDevHubModal(tab = 'templates') {
-            switchDevTab(tab);
-            const modal = document.getElementById('devHubModal');
-            const content = document.getElementById('devHubContent');
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                content.classList.remove('scale-95');
-            }, 10);
-        }
-
-        function closeDevHubModal() {
-            const modal = document.getElementById('devHubModal');
-            const content = document.getElementById('devHubContent');
-            modal.classList.add('opacity-0');
-            content.classList.add('scale-95');
-            setTimeout(() => { modal.classList.add('hidden'); }, 300);
-        }
-
-        function switchDevTab(tabName) {
-            const tabTemplates = document.getElementById('devTabTemplates');
-            const tabInstructions = document.getElementById('devTabInstructions');
-            const btnTemplates = document.getElementById('tabBtnTemplates');
-            const btnInstructions = document.getElementById('tabBtnInstructions');
-
-            if (tabName === 'templates') {
-                tabTemplates.classList.remove('hidden');
-                tabInstructions.classList.add('hidden');
-                btnTemplates.className = 'px-4 py-3 text-xs font-bold border-b-2 border-poki-pink text-poki-pink transition-all flex items-center gap-2';
-                btnInstructions.className = 'px-4 py-3 text-xs font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all flex items-center gap-2';
-            } else {
-                tabTemplates.classList.add('hidden');
-                tabInstructions.classList.remove('hidden');
-                btnInstructions.className = 'px-4 py-3 text-xs font-bold border-b-2 border-poki-pink text-poki-pink transition-all flex items-center gap-2';
-                btnTemplates.className = 'px-4 py-3 text-xs font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all flex items-center gap-2';
-            }
-        }
-
-        function loadSelectedTemplate() {
-            const key = document.getElementById('templateSelector').value;
-            const code = codeTemplates[key] || codeTemplates.canvasLoop;
-            
-            const fileLabel = key === 'canvasLoop' ? './Games/archers.html' :
-                             key === 'responsivePhysics' ? './Games/racing.html' :
-                             key === 'gridPuzzle' ? './Games/puzzle.html' : './Games/runner.html';
-
-            document.getElementById('templateFileLabel').textContent = fileLabel;
-            
-            // Escape HTML for pre view display
-            const codeDisplay = document.getElementById('codeDisplayArea');
-            codeDisplay.textContent = code;
-        }
-
-        function copyActiveTemplateCode() {
-            const key = document.getElementById('templateSelector').value;
-            const code = codeTemplates[key] || codeTemplates.canvasLoop;
-            copyToClipboard(code, document.getElementById('copyCodeBtn'));
-        }
-
-        function copyTemplateCodeForCurrentGame() {
-            if (!activeGameModal) return;
-            let code = codeTemplates.canvasLoop;
-            if (activeGameModal.id === 'racing') code = codeTemplates.responsivePhysics;
-            if (activeGameModal.id === 'puzzle') code = codeTemplates.gridPuzzle;
-            if (activeGameModal.id === 'runner') code = codeTemplates.runnerEngine;
-            
-            copyToClipboard(code, null);
-            alert(`Starter code for ./Games/${activeGameModal.id}.html copied to clipboard!\nCreate the file in your repository and paste it in.`);
-        }
-
-        // Custom reliable copy function using execCommand ('copy') per mandatory iFrame specs
-        function copyToClipboard(text, btnElement) {
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            textarea.style.position = 'fixed';
-            textarea.style.opacity = '0';
-            document.body.appendChild(textarea);
-            textarea.select();
-            
-            try {
-                document.execCommand('copy');
-                if (btnElement) {
-                    const originalText = btnElement.innerHTML;
-                    btnElement.innerHTML = '<i class="fas fa-check text-emerald-400"></i> Copied to Clipboard!';
-                    setTimeout(() => { btnElement.innerHTML = originalText; }, 2200);
-                }
-            } catch (err) {
-                console.error('Failed to copy text', err);
-            }
-            document.body.removeChild(textarea);
-        }
-
-        function copyShareLink() {
-            const url = window.location.href;
-            copyToClipboard(url, null);
-            alert('Portal link copied to clipboard!');
-        }
-
-        /* ==================== ADD CUSTOM GAME FORM LOGIC ==================== */
-        function openAddGameModal() {
-            const modal = document.getElementById('addGameModal');
-            const content = document.getElementById('addGameContent');
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                content.classList.remove('scale-95');
-            }, 10);
-        }
-
-        function closeAddGameModal() {
-            const modal = document.getElementById('addGameModal');
-            const content = document.getElementById('addGameContent');
-            modal.classList.add('opacity-0');
-            content.classList.add('scale-95');
-            setTimeout(() => { modal.classList.add('hidden'); }, 300);
-        }
-
-        function handleAddNewGame(e) {
-            e.preventDefault();
-            const title = document.getElementById('newGameTitle').value.trim();
-            const rawId = document.getElementById('newGameId').value.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
-            const category = document.getElementById('newGameCategory').value;
-            const bgGradient = document.getElementById('newGameColor').value;
-            const controls = document.getElementById('newGameControls').value.trim() || 'Use keyboard arrow keys or touch.';
-
-            if (!title || !rawId) return;
-
-            const newGame = {
-                id: rawId,
-                title: title,
-                category: category,
-                path: `Games/${rawId}.html`,
-                bgGradient: bgGradient,
-                icon: 'fa-gamepad',
-                rating: '5.0',
-                plays: '1',
-                badge: 'CUSTOM',
-                controls: controls,
-                likes: 1,
-                featured: false
-            };
-
-            // Append to local state
-            gamesData.push(newGame);
-
-            // Persist user added games in localStorage
-            const savedCustom = JSON.parse(localStorage.getItem('poki_custom_games') || '[]');
-            savedCustom.push(newGame);
-            localStorage.setItem('poki_custom_games', JSON.stringify(savedCustom));
-
-            // Refresh UI
-            renderGrid();
-            closeAddGameModal();
-            document.getElementById('addGameForm').reset();
-
-            alert(`Game "${title}" successfully added!\nPoints to file: ./Games/${rawId}.html`);
-        }
-
-        /* ==================== THEME TOGGLE LOGIC ==================== */
+        /* ==================== THEME ==================== */
         function toggleTheme() {
             const html = document.documentElement;
             if (html.classList.contains('dark')) {
@@ -1250,10 +400,17 @@ my-poki-portal/
             }
         }
 
-        // Apply saved theme on boot
         if (localStorage.getItem('poki_theme') === 'light') {
             document.documentElement.classList.remove('dark');
         }
+
+        /* ==================== START ==================== */
+        window.addEventListener('DOMContentLoaded', () => {
+            const onSearch = e => { searchQuery = e.target.value.toLowerCase().trim(); renderGrid(); };
+            document.getElementById('searchInput').addEventListener('input', onSearch);
+            document.getElementById('mobileSearchInput').addEventListener('input', onSearch);
+            loadGames();
+        });
     </script>
 </body>
 </html>
